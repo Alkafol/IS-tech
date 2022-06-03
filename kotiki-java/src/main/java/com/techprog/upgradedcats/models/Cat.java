@@ -1,8 +1,6 @@
 package com.techprog.upgradedcats.models;
 
 import com.fasterxml.jackson.annotation.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,11 +11,11 @@ import java.util.*;
 public class Cat implements Serializable {
 
     @Column(name = "cat_name")
-    private String _name;
+    private String name;
 
     @Column(name = "color")
     @Enumerated(EnumType.STRING)
-    private Color _color;
+    private Color color;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinTable(
@@ -26,14 +24,14 @@ public class Cat implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "owner_id")
     )
     @JsonIgnore
-    private Owner _owner;
+    private Owner owner;
 
     @Column(name = "breed")
-    private String _breed;
+    private String breed;
 
     @Column(name = "date_of_birth")
     @Temporal(TemporalType.DATE)
-    private Calendar _dateOfBirth;
+    private Calendar dateOfBirth;
 
     @Id
     @Column(name = "cat_id")
@@ -46,14 +44,14 @@ public class Cat implements Serializable {
             joinColumns = @JoinColumn(name = "first_cat"),
             inverseJoinColumns = @JoinColumn(name = "second_cat")
     )
-    private Set<Cat> _friends = new HashSet<>();
+    private Set<Cat> friends = new HashSet<>();
 
     public Cat(String name, Calendar dateOfBirth, String breed, Color color, Owner owner){
-        _name = name;
-        _dateOfBirth = dateOfBirth;
-        _breed = breed;
-        _color = color;
-        _owner = owner;
+        this.name = name;
+        this.dateOfBirth = dateOfBirth;
+        this.breed = breed;
+        this.color = color;
+        this.owner = owner;
         id = UUID.randomUUID().toString();
     }
 
@@ -71,53 +69,53 @@ public class Cat implements Serializable {
     }
 
     public void setName(String name){
-        _name = name;
+        this.name = name;
     }
 
     public void setDateOfBirth(Calendar dateOfBirth){
-        _dateOfBirth = dateOfBirth;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public void setBreed(String breed){
-        _breed = breed;
+        this.breed = breed;
     }
 
     public void setColor(Color color){
-        _color = color;
+        this.color = color;
     }
 
     public void setFriends(Set<Cat> friends){
-        _friends = friends;
+        this.friends = friends;
     }
 
     public void setOwner(Owner owner){
-        _owner = owner;
+        this.owner = owner;
     }
 
     public void addFriend(Cat cat){
-        _friends.add(cat);
+        friends.add(cat);
     }
 
-    public void removeFriend(Cat cat){ _friends.remove(cat); }
+    public void removeFriend(Cat cat){ friends.remove(cat); }
 
     public String getName(){
-        return _name;
+        return name;
     }
 
     public Calendar getDateOfBirth(){
-        return _dateOfBirth;
+        return dateOfBirth;
     }
 
     public String getBreed(){
-        return _breed;
+        return breed;
     }
 
     public Color getColor(){
-        return _color;
+        return color;
     }
 
     public Owner getOwner(){
-        return _owner;
+        return owner;
     }
 
     public String getId() { return id; }
@@ -125,9 +123,9 @@ public class Cat implements Serializable {
     private void setId(String id){ this.id =  id;}
 
     public void removeAllFriends(){
-        _friends.clear();
+        friends.clear();
     }
 
     @JsonIgnoreProperties("friends ")
-    public Set<Cat> getFriends(){ return _friends; }
+    public Set<Cat> getFriends(){ return friends; }
 }

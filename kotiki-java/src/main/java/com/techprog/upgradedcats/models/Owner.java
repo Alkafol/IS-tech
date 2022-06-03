@@ -1,7 +1,6 @@
 package com.techprog.upgradedcats.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,25 +17,30 @@ public class Owner implements Serializable {
     private String _id = UUID.randomUUID().toString();
 
     @Column(name = "name")
-    private String _name;
+    private String name;
 
     @Column(name = "date_of_birth")
-    private Calendar _dateOfBirth;
+    private Calendar dateOfBirth;
 
-    @OneToMany(mappedBy = "_owner", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private Set<Cat> cats = new HashSet<>();
 
-    public Owner(String name, Calendar dateOfBirth){
-        _name = name;
-        _dateOfBirth = dateOfBirth;
+    @OneToOne(targetEntity = User.class)
+    @JoinColumn(name = "username")
+    private User user;
+
+    public Owner(String name, Calendar dateOfBirth, User user){
+        this.name = name;
+        this.dateOfBirth = dateOfBirth;
+        this.user = user;
     }
 
     public Owner() {
     }
 
-    public static Owner createCustomOwner(String name, String id, Calendar dateOfBirth, Set<Cat> cats){
-        Owner owner = new Owner(name, dateOfBirth);
+    public static Owner createCustomOwner(String name, String id, Calendar dateOfBirth, Set<Cat> cats, User user){
+        Owner owner = new Owner(name, dateOfBirth, user);
         if (id == null){
             return owner;
         }
@@ -46,11 +50,11 @@ public class Owner implements Serializable {
     }
 
     public void setName(String name){
-        _name = name;
+        this.name = name;
     }
 
     public void setDateOfBirth(Calendar dateOfBirth){
-        _dateOfBirth = dateOfBirth;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public void setCats(Set<Cat> newCats){
@@ -58,11 +62,11 @@ public class Owner implements Serializable {
     }
 
     public String getName(){
-        return _name;
+        return name;
     }
 
     public Calendar getDateOfBirth(){
-        return _dateOfBirth;
+        return dateOfBirth;
     }
 
     public String getId() { return _id; }
@@ -76,6 +80,8 @@ public class Owner implements Serializable {
     public void removeCat(Cat cat){
         cats.remove(cat);
     }
+
+    public User getUser(){ return user; }
 
     private void setId(String id){ _id = id; }
 }
