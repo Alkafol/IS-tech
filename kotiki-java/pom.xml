@@ -2,12 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
-    <modules>
-        <module>outerInterface</module>
-        <module>owner</module>
-        <module>cat</module>
-    </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -17,8 +11,8 @@
     <groupId>com.techprog</groupId>
     <artifactId>upgradedcats</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>microservice_cats</name>
-    <description>microservice_cats</description>
+    <name>upgradedcats</name>
+    <description>upgradedcats</description>
     <properties>
         <java.version>18</java.version>
     </properties>
