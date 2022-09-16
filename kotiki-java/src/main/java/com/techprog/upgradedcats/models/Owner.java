@@ -1,10 +1,9 @@
 package com.techprog.upgradedcats.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -20,27 +19,22 @@ public class Owner implements Serializable {
     private String name;
 
     @Column(name = "date_of_birth")
-    private Calendar dateOfBirth;
+    private LocalDate dateOfBirth;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private Set<Cat> cats = new HashSet<>();
 
-    @OneToOne(targetEntity = User.class)
-    @JoinColumn(name = "username")
-    private User user;
-
-    public Owner(String name, Calendar dateOfBirth, User user){
+    public Owner(String name, LocalDate dateOfBirth){
         this.name = name;
         this.dateOfBirth = dateOfBirth;
-        this.user = user;
     }
 
     public Owner() {
     }
 
-    public static Owner createCustomOwner(String name, String id, Calendar dateOfBirth, Set<Cat> cats, User user){
-        Owner owner = new Owner(name, dateOfBirth, user);
+    public static Owner createCustomOwner(String name, String id, LocalDate dateOfBirth, Set<Cat> cats){
+        Owner owner = new Owner(name, dateOfBirth);
         if (id == null){
             return owner;
         }
@@ -53,7 +47,7 @@ public class Owner implements Serializable {
         this.name = name;
     }
 
-    public void setDateOfBirth(Calendar dateOfBirth){
+    public void setDateOfBirth(LocalDate dateOfBirth){
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -65,7 +59,7 @@ public class Owner implements Serializable {
         return name;
     }
 
-    public Calendar getDateOfBirth(){
+    public LocalDate getDateOfBirth(){
         return dateOfBirth;
     }
 
@@ -80,8 +74,6 @@ public class Owner implements Serializable {
     public void removeCat(Cat cat){
         cats.remove(cat);
     }
-
-    public User getUser(){ return user; }
 
     private void setId(String id){ _id = id; }
 }

@@ -1,71 +1,51 @@
 package com.techprog.upgradedcats.dto;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class CatDto {
-    private String name = null;
-    private String id = null;
-    private String color = null;
-    private String ownerId = null;
-    private String breed = null;
-    private Calendar dateOfBirth = null;
-    private List<String> friendsId = new ArrayList<>();
+    private final String name;
+    private final String id;
+    private final String color;
+    private final String ownerId;
+    private final String breed;
+    private final String dateOfBirth;
+    private final List<String> friendsId;
+
+    public CatDto(String name, String id, String color, String ownerId, String breed, String dateOfBirth, List<String> friendsId) {
+        this.name = name;
+        this.id = id;
+        this.color = color;
+        this.ownerId = ownerId;
+        this.breed = breed;
+        this.dateOfBirth = dateOfBirth;
+        this.friendsId = friendsId;
+    }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getId(){
+    public String getId() {
         return id;
-    }
-
-    public void setId(String id){
-        this.id = id;
     }
 
     public String getColor() {
         return color;
     }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
-
     public String getOwnerId() {
         return ownerId;
-    }
-
-    public void setOwnerId(String ownerId) {
-        this.ownerId = ownerId;
     }
 
     public String getBreed() {
         return breed;
     }
 
-    public void setBreed(String breed) {
-        this.breed = breed;
-    }
-
-    public Calendar getDateOfBirth(){
+    public String getDateOfBirth() {
         return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Calendar dateOfBirth){
-        this.dateOfBirth = dateOfBirth;
     }
 
     public List<String> getFriendsId() {
         return friendsId;
-    }
-
-    public void setFriendsId(List<String> friendsId) {
-        this.friendsId = friendsId;
     }
 }

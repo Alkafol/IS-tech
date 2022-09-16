@@ -8,10 +8,12 @@ public enum ApplicationUserPermission {
     GET_ALL_CATS("cat:get_all"),
     GET_ALL_OWNERS("owner:get_all"),
     GET_CAT_BY_COLOR("cat:get_by_color"),
+    GET_ALL_FRIENDS("cat:get_all_friends"),
     DELETE_CAT("cat:delete"),
     DELETE_OWNER("owner:delete"),
     START_FRIENDSHIP("cat:start_friendship"),
     STOP_FRIENDSHIP("cat:stop_friendship");
+
 
     private final String permission;
 

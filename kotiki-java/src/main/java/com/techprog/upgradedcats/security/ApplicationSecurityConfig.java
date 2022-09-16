@@ -33,6 +33,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         InMemoryUserDetailsManagerConfigurer memprovider =
                 new InMemoryUserDetailsManagerConfigurer();
 
+        // default and automatically created admin account
         memprovider.passwordEncoder(passwordEncoder);
         memprovider.withUser("admin")
                 .disabled(false)
