@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.*;
 
 @Entity
@@ -17,7 +18,7 @@ public class Cat implements Serializable {
     @Enumerated(EnumType.STRING)
     private Color color;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     @JoinTable(
             name = "ownership",
             joinColumns = @JoinColumn(name = "cat_id"),
@@ -30,8 +31,7 @@ public class Cat implements Serializable {
     private String breed;
 
     @Column(name = "date_of_birth")
-    @Temporal(TemporalType.DATE)
-    private Calendar dateOfBirth;
+    private LocalDate dateOfBirth;
 
     @Id
     @Column(name = "cat_id")
@@ -46,7 +46,7 @@ public class Cat implements Serializable {
     )
     private Set<Cat> friends = new HashSet<>();
 
-    public Cat(String name, Calendar dateOfBirth, String breed, Color color, Owner owner){
+    public Cat(String name, LocalDate dateOfBirth, String breed, Color color, Owner owner){
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.breed = breed;
@@ -58,7 +58,7 @@ public class Cat implements Serializable {
     public Cat() {
     }
 
-    public static Cat createCustomCat(String name, String id, Calendar dateOfBirth, String breed, Color color, Owner owner, Set<Cat> friends){
+    public static Cat createCustomCat(String name, String id, LocalDate dateOfBirth, String breed, Color color, Owner owner, Set<Cat> friends){
         Cat cat = new Cat(name, dateOfBirth, breed, color, owner);
         if (id == null){
             return cat;
@@ -72,7 +72,7 @@ public class Cat implements Serializable {
         this.name = name;
     }
 
-    public void setDateOfBirth(Calendar dateOfBirth){
+    public void setDateOfBirth(LocalDate dateOfBirth){
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -102,7 +102,7 @@ public class Cat implements Serializable {
         return name;
     }
 
-    public Calendar getDateOfBirth(){
+    public LocalDate getDateOfBirth(){
         return dateOfBirth;
     }
 
