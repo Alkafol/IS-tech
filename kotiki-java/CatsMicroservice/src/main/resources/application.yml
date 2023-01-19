@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Cats
+    username: postgres
+    password: 1234
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL92Dialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+
+  rabbitmq:
+    host: localhost
+    password: guest
+    port: 15672
+    username: guest
+    listener:
+      simple:
+        default-requeue-rejected: false
+server:
+  port: 8081
+
