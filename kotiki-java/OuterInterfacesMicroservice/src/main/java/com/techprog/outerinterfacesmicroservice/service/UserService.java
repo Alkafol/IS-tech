@@ -36,8 +36,7 @@ public class UserService implements UserDetailsService {
             throw new UserExistenceException("User with given username already exists");
         }
 
-        OwnerDto ownerDto = new OwnerDto(userCreationDto.getOwnerId(), userCreationDto.getOwnerName(),
-                userCreationDto.getOwnerDateOfBirth(), new ArrayList<>());
+        OwnerDto ownerDto = mapper.convertToOwnerDtoFromUserCreationDto(userCreationDto);
         OwnerDto createdOwner = requestSender.addOwner(ownerDto);
 
         User receivedUser = mapper.convertToUserFromUserCreationDto(userCreationDto);
@@ -46,7 +45,7 @@ public class UserService implements UserDetailsService {
 
         User createdUser = userRepository.save(receivedUser);
 
-        return mapper.convertToUserDto(createdUser, ownerDto);
+        return mapper.convertToUserDto(createdUser, createdOwner);
     }
 
     public void deleteUser(String username) throws CatMicroserviceException, OwnerMicroserviceException, UserExistenceException {

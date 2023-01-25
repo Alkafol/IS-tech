@@ -102,7 +102,7 @@ public class CatService {
         return coloredCats.stream().map(mapper::convertToCatDto).toList();
     }
 
-    private List<Cat> getAllCatFriends(Integer catId){
+    public List<Cat> getAllCatFriends(Integer catId){
         List<Integer> friendsId = catRepository.findFriendsFromSecondFriendshipColumn(catId);
         friendsId.addAll(catRepository.findFriendsFromFirstFriendshipColumn(catId));
 

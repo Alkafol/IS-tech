@@ -36,8 +36,8 @@ public class AppController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/user")
     @PreAuthorize("hasAuthority('user:add')")
+    // only admin method
     public UserInfoDto addUser(@RequestBody UserCreationDto userCreationDto){
-        // ONLY ADMIN METHOD
         try {
             return userService.addUser(userCreationDto);
         } catch (OwnerMicroserviceException | UserExistenceException e) {
@@ -62,8 +62,8 @@ public class AppController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/user/get/{username}")
     @PreAuthorize("hasAuthority('user:get_by_username')")
+    // only admin method
     public UserInfoDto getUserByUsername(@PathVariable String username){
-        // ONLY ADMIN METHOD
         try {
             return userService.getUserByUsername(username);
         } catch (OwnerMicroserviceException | UserExistenceException e) {
@@ -74,8 +74,8 @@ public class AppController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/user/get_all")
     @PreAuthorize("hasAuthority('user:get_all')")
+    // only admin method
     public List<UserInfoDto> getAllUsers(){
-        // ONLY ADMIN METHOD
         try {
             return userService.getAllUsers();
         } catch (OwnerMicroserviceException e) {
@@ -142,7 +142,7 @@ public class AppController {
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/user/delete/{username}")
     @PreAuthorize("hasAuthority('user:delete')")
-    // ONLY FOR ADMIN
+    // only admin method
     public void deleteUser(@PathVariable String username){
         try {
             userService.deleteUser(username);
