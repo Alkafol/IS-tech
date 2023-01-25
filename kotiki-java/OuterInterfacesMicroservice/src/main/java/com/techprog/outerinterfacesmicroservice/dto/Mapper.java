@@ -4,6 +4,8 @@ import com.techprog.entities.user.ApplicationUserRole;
 import com.techprog.entities.user.User;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class Mapper {
 
@@ -26,6 +28,15 @@ public class Mapper {
                 userCreationDto.getPassword(),
                 ApplicationUserRole.valueOf(userCreationDto.getRole()),
                 userCreationDto.getOwnerId() == null ? null : Integer.parseInt(userCreationDto.getOwnerId())
+        );
+    }
+
+    public OwnerDto convertToOwnerDtoFromUserCreationDto(UserCreationDto userCreationDto){
+        return new OwnerDto(
+                userCreationDto.getOwnerId(),
+                userCreationDto.getOwnerName(),
+                userCreationDto.getOwnerDateOfBirth(),
+                new ArrayList<>()
         );
     }
 }
